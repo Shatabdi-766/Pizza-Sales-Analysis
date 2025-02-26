@@ -1,0 +1,10 @@
+-- Identify the most common pizza size ordered
+SELECT 
+    PI.SIZE, COUNT(order_details_ID) AS MOST_COMMON_PIZZA_SIZE
+FROM
+    ORDER_DETAILS OD
+        INNER JOIN
+    PIZZAS PI ON OD.PIZZA_ID = PI.PIZZA_ID
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 1;
