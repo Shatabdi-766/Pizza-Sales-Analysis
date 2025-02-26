@@ -1,1 +1,15 @@
-
+-- Analyze the cumulative revenue generated over time.
+SELECT 
+   DATE, 
+      ROUND(SUM(REVENUE) OVER(ORDER BY DATE),2 ) AS CUM_REVENUE
+FROM
+(SELECT 
+    OO.ORDER_DATE AS DATE,
+    ROUND(SUM((OD.QUANTITY * PI.PRICE)), 2) AS REVENUE
+FROM
+    ORDER_DETAILS OD
+        INNER JOIN
+    pizzas PI ON OD.pizza_id = PI.pizza_id
+        INNER JOIN
+    ORDERS OO ON OO.ORDER_ID = OD.ORDER_ID
+GROUP BY 1) AS SALES;
